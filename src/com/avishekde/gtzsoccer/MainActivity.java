@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -209,17 +210,35 @@ public class MainActivity extends FragmentActivity implements
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 
 			super.onViewCreated(view, savedInstanceState);
-			Button b=(Button)getActivity().findViewById(R.id.button1);
-			b.setOnClickListener(new OnClickListener(){
+
+			// creating submit button listener
+			Button mSubmitButton = (Button) getActivity().findViewById(
+					R.id.button1);
+			mSubmitButton.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					
-					Intent mAdminPanelCredentials=new Intent(getActivity(),AdminPanel.class);
-					startActivity(mAdminPanelCredentials);
-					
+					EditText user = (EditText) getActivity().findViewById(
+							R.id.editText1);
+					String USER = user.getText().toString();
+
+					EditText pass = (EditText) getActivity().findViewById(
+							R.id.editText2);
+					String PASS = pass.getText().toString();
+
+					if (USER.equals(USER_NAME) && PASS.equals(PASS_KEY)) {
+						Intent mAdminPanelCredentials = new Intent(
+								getActivity(), AdminPanel.class);
+						startActivity(mAdminPanelCredentials);
+					}
+					else{
+						user.setText("");
+						pass.setText("");
+						Toast.makeText(getActivity(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
+					}
+
 				}
-				
+
 			});
 		}
 
