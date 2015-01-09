@@ -4,28 +4,23 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends FragmentActivity implements
+public class AdminPanel extends FragmentActivity implements
 		ActionBar.TabListener {
-
-	private static final String USER_NAME = "dnsgtadmin";
-	private static final String PASS_KEY = "knockouts@gtz";
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,7 +40,7 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_admin_panel);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -81,43 +76,13 @@ public class MainActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-
-	}
-
-	// Performs Admin Check when user presses on Submit
-	public void callFromAdmin() {
-		final Button submitAdminFrag = (Button) findViewById(R.id.button1);
-		submitAdminFrag.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				final EditText user = (EditText) findViewById(R.id.editText1);
-				final EditText pass = (EditText) findViewById(R.id.editText2);
-
-			}
-
-		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.admin_panel, menu);
 		return true;
-	}
-
-	// Creates a new fullscreen activity on selecting About in Options
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_settings: {
-			Intent aboutpage = new Intent(getApplicationContext(),
-					AboutActivity.class);
-			startActivity(aboutpage);
-			return true;
-		}
-		default:
-			return false;
-		}
 	}
 
 	@Override
@@ -153,39 +118,17 @@ public class MainActivity extends FragmentActivity implements
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			switch (position) {
-			case 0: {
-				Fragment fragment = new AdminFragment();
-				Bundle args = new Bundle();
-				args.putInt(AdminFragment.ARG_SECTION_NUMBER,
-						position + 1);
-				fragment.setArguments(args);
-				return fragment;
-			}
-			case 1: {
-				Fragment fragment = new GuestFragment();
-				Bundle args = new Bundle();
-				args.putInt(AdminFragment.ARG_SECTION_NUMBER,
-						position + 1);
-				fragment.setArguments(args);
-				return fragment;
-			}
-			default: {
-				Fragment fragment = new AdminFragment();
-				Bundle args = new Bundle();
-				args.putInt(AdminFragment.ARG_SECTION_NUMBER,
-						position + 1);
-				fragment.setArguments(args);
-				return fragment;
-			}
-			}
-
+			Fragment fragment = new DummySectionFragment();
+			Bundle args = new Bundle();
+			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+			fragment.setArguments(args);
+			return fragment;
 		}
 
 		@Override
 		public int getCount() {
-			// Show 2 total pages.
-			return 2;
+			// Show 3 total pages.
+			return 3;
 		}
 
 		@Override
@@ -196,57 +139,38 @@ public class MainActivity extends FragmentActivity implements
 				return getString(R.string.title_section1).toUpperCase(l);
 			case 1:
 				return getString(R.string.title_section2).toUpperCase(l);
-
+			case 2:
+				return getString(R.string.title_section3).toUpperCase(l);
 			}
 			return null;
 		}
 	}
 
-	// The fragment for the admin view
-	public static class AdminFragment extends Fragment {
+	/**
+	 * A dummy fragment representing a section of the app, but that simply
+	 * displays dummy text.
+	 */
+	public static class DummySectionFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public AdminFragment() {
+		public DummySectionFragment() {
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView;
-			rootView = inflater.inflate(R.layout.fragment_admin, container,
-					false);
-
-			return rootView;
-		}
-	}
-
-	// The fragment for guest View
-	public static class GuestFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public GuestFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView;
-
-			rootView = inflater.inflate(R.layout.fragment_guest, container,
-					false);
+			View rootView = inflater.inflate(
+					R.layout.fragment_admin_panel_dummy, container, false);
 			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label_guest);
-			dummyTextView.setText("Guest");
-
+					.findViewById(R.id.section_label);
+			dummyTextView.setText(Integer.toString(getArguments().getInt(
+					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
 	}
+
 }
