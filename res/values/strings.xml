@@ -13,5 +13,11 @@
     <string name="adminSubmit">Submit</string>
     <string name="title_activity_admin_panel">AdminPanel</string>
     <string name="title_section3">Section 3</string>
+    <string name="gscb1">View Participants</string>
+    <string name="gscb2">Points Table</string>
+    <string name="gscb3">Top Scorers</string>
+    <string name="gscb4">Top Assists</string>
+    <string name="gscb5">View Results</string>
+    <string name="gscb6">View Knockouts</string>
 
 </resources>

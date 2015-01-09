@@ -262,9 +262,7 @@ public class MainActivity extends FragmentActivity implements
 
 			rootView = inflater.inflate(R.layout.fragment_guest, container,
 					false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label_guest);
-			dummyTextView.setText("Guest");
+
 
 			return rootView;
 		}
