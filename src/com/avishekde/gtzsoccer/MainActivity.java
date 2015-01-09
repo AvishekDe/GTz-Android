@@ -84,21 +84,6 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-	// Performs Admin Check when user presses on Submit
-	public void callFromAdmin() {
-		final Button submitAdminFrag = (Button) findViewById(R.id.button1);
-		submitAdminFrag.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				final EditText user = (EditText) findViewById(R.id.editText1);
-				final EditText pass = (EditText) findViewById(R.id.editText2);
-
-			}
-
-		});
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -157,24 +142,21 @@ public class MainActivity extends FragmentActivity implements
 			case 0: {
 				Fragment fragment = new AdminFragment();
 				Bundle args = new Bundle();
-				args.putInt(AdminFragment.ARG_SECTION_NUMBER,
-						position + 1);
+				args.putInt(AdminFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
 				return fragment;
 			}
 			case 1: {
 				Fragment fragment = new GuestFragment();
 				Bundle args = new Bundle();
-				args.putInt(AdminFragment.ARG_SECTION_NUMBER,
-						position + 1);
+				args.putInt(AdminFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
 				return fragment;
 			}
 			default: {
 				Fragment fragment = new AdminFragment();
 				Bundle args = new Bundle();
-				args.putInt(AdminFragment.ARG_SECTION_NUMBER,
-						position + 1);
+				args.putInt(AdminFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
 				return fragment;
 			}
@@ -211,6 +193,7 @@ public class MainActivity extends FragmentActivity implements
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public AdminFragment() {
+
 		}
 
 		@Override
@@ -219,9 +202,27 @@ public class MainActivity extends FragmentActivity implements
 			View rootView;
 			rootView = inflater.inflate(R.layout.fragment_admin, container,
 					false);
-
 			return rootView;
 		}
+
+		@Override
+		public void onViewCreated(View view, Bundle savedInstanceState) {
+
+			super.onViewCreated(view, savedInstanceState);
+			Button b=(Button)getActivity().findViewById(R.id.button1);
+			b.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					
+					Intent mAdminPanelCredentials=new Intent(getActivity(),AdminPanel.class);
+					startActivity(mAdminPanelCredentials);
+					
+				}
+				
+			});
+		}
+
 	}
 
 	// The fragment for guest View
