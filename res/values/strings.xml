@@ -19,5 +19,7 @@
     <string name="gscb4">Top Assists</string>
     <string name="gscb5">View Results</string>
     <string name="gscb6">View Knockouts</string>
+    <string name="title_activity_participants_list">List of Participants</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

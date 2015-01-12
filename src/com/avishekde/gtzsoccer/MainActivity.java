@@ -213,7 +213,7 @@ public class MainActivity extends FragmentActivity implements
 
 			// creating submit button listener
 			Button mSubmitButton = (Button) getActivity().findViewById(
-					R.id.button1);
+					R.id.buttonSub);
 			mSubmitButton.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -230,11 +230,11 @@ public class MainActivity extends FragmentActivity implements
 						Intent mAdminPanelCredentials = new Intent(
 								getActivity(), AdminPanel.class);
 						startActivity(mAdminPanelCredentials);
-					}
-					else{
+					} else {
 						user.setText("");
 						pass.setText("");
-						Toast.makeText(getActivity(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(), "Invalid Credentials",
+								Toast.LENGTH_SHORT).show();
 					}
 
 				}
@@ -262,9 +262,28 @@ public class MainActivity extends FragmentActivity implements
 
 			rootView = inflater.inflate(R.layout.fragment_guest, container,
 					false);
-
-
 			return rootView;
+		}
+
+		@Override
+		public void onViewCreated(View view, Bundle savedInstanceState) {
+
+			super.onViewCreated(view, savedInstanceState);
+
+			// Calling intents on buttons
+			Button mParticipantsList = (Button) getActivity().findViewById(
+					R.id.button1);
+			mParticipantsList.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					Intent mParticipants = new Intent(getActivity(),
+							ParticipantsList.class);
+					startActivity(mParticipants);
+
+				}
+
+			});
 		}
 	}
 }
